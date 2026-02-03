@@ -1,4 +1,26 @@
-# Claude Sandbox
+# LeKiwi Robot Stack
+
+Lightweight control stack for a LeKiwi robot running on Raspberry Pi OS with
+two USB webcams. The stack is designed for:
+
+- Safe, deterministic motion control
+- Foxglove SDK live telemetry + manual MCAP logging
+- Model-based control via laptop now, with a path to run on Pi later
+
+## Docs
+
+- docs/system_overview.md
+- docs/bringup.md
+- docs/topics_and_schema.md
+- docs/systemd_plan.md
+
+## Config Templates
+
+- configs/robot.yaml
+- configs/cameras.yaml
+- configs/logging.yaml
+
+## Development Sandbox
 
 Run [Claude Code](https://docs.anthropic.com/en/docs/claude-code) in a sandboxed
 Docker container. Your code is accessible, but your SSH keys, git credentials,
