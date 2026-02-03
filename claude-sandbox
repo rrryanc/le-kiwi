@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+IMAGE_NAME="claude-sandbox"
+
+resolve_path() {
+  local source="$1"
+  while [ -h "$source" ]; do
+    local dir
+    dir="$(cd -P "$(dirname "$source")" && pwd)"
+    source="$(readlink "$source")"
+    if [[ "$source" != /* ]]; then
+      source="${dir}/${source}"
+    fi
+  done
+  local dir
+  dir="$(cd -P "$(dirname "$source")" && pwd)"
+  printf "%s/%s\n" "$dir" "$(basename "$source")"
+}
+
+SCRIPT_PATH="$(resolve_path "$0")"
+SCRIPT_DIR="$(cd -P "$(dirname "$SCRIPT_PATH")" && pwd)"
+
+usage() {
+  cat <<'EOF'
+Usage: claude-sandbox [--build] [--shell] [prompt...]
+
+Options:
+  --build    Build the Docker image
+  --shell    Start a shell instead of Claude
+  -h, --help Show this help
+EOF
+}
+
+build_image() {
+  docker build -t "$IMAGE_NAME" -f "$SCRIPT_DIR/Dockerfile" "$SCRIPT_DIR"
+}
+
+build=false
+shell=false
+args=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --build)
+      build=true
+      ;;
+    --shell)
+      shell=true
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      args+=("$@")
+      break
+      ;;
+    *)
+      args+=("$1")
+      ;;
+  esac
+  shift
+done
+
+if $build; then
+  build_image
+  if ! $shell && [[ ${#args[@]} -eq 0 ]]; then
+    exit 0
+  fi
+fi
+
+cmd=()
+if $shell; then
+  cmd=("bash")
+else
+  cmd=("claude")
+  if [[ ${#args[@]} -gt 0 ]]; then
+    cmd+=("${args[@]}")
+  fi
+fi
+
+docker run --rm -it \
+  -v "$PWD":/workspace \
+  -v claude-auth:/home/sandbox/.config/claude \
+  -w /workspace \
+  --user 1000:1000 \
+  "$IMAGE_NAME" "${cmd[@]}"
