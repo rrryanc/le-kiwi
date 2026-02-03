@@ -1,0 +1,12 @@
+logging:
+  directory: "data/mcap"
+  include_cameras: false
+  rotate_on_size_mb: 1024
+  default_topics:
+    - "/state/odometry"
+    - "/state/servos"
+    - "/state/power"
+    - "/system/diagnostics"
+    - "/cmd/velocity"
+    - "/cmd/skill"
+    - "/log/status"
