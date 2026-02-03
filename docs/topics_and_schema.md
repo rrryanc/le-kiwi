@@ -1,8 +1,9 @@
 # Topics and Message Schema
 
 This document defines the minimal, stable topics used across the LeKiwi control
-stack. Messages are JSON objects with explicit units and timestamps in
-nanoseconds.
+stack. The current Rust implementation publishes JSON messages with
+`message_encoding="json"` for each channel. Messages include explicit units and
+timestamps in nanoseconds.
 
 ## Timestamp Conventions
 
@@ -47,6 +48,7 @@ Example:
 High-level skill request.
 
 Fields:
+- timestamp_ns
 - request_id
 - skill_name
 - params (object)
@@ -56,6 +58,7 @@ Fields:
 Example:
 ```
 {
+  "timestamp_ns": 1738600000000000000,
   "request_id": "req-00042",
   "skill_name": "rotate_to_heading",
   "params": { "theta_rad": 1.57, "tolerance_rad": 0.1 },

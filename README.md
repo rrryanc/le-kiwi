@@ -20,6 +20,33 @@ two USB webcams. The stack is designed for:
 - configs/cameras.yaml
 - configs/logging.yaml
 
+## Rust Stack
+
+The control stack is implemented in Rust and uses the Foxglove SDK for live
+visualization plus MCAP logging. Install Rust 1.83+ with rustup and build:
+
+```bash
+cargo build --release
+```
+
+Run the full stack (single process with multiple async services):
+
+```bash
+./target/release/lekiwi stack
+```
+
+Individual services are available as subcommands:
+
+```bash
+./target/release/lekiwi foxglove
+./target/release/lekiwi mcap-logger
+./target/release/lekiwi behavior-router
+./target/release/lekiwi kinematics
+./target/release/lekiwi motor-bus
+./target/release/lekiwi state-estimator
+./target/release/lekiwi cameras
+```
+
 ## Development Sandbox
 
 Run [Claude Code](https://docs.anthropic.com/en/docs/claude-code) in a sandboxed

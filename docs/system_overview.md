@@ -8,6 +8,9 @@ running on Raspberry Pi OS with two USB webcams. The design prioritizes:
 - Foxglove SDK for live telemetry + manual MCAP logging
 - Laptop-based model inference now, with a clean path to run on Pi later
 
+The initial implementation is a Rust-based stack (`lekiwi` binary) with
+subcommands for each service.
+
 ## Hardware Assumptions
 
 - Battery: 12V 5200mAh Li-ion

@@ -59,12 +59,38 @@ Repeat for:
 
 ## 7) Start Services (Recommended Order)
 
-1. motor_bus
+Build the Rust binary:
+
+```bash
+# Use Rust 1.83+ (via rustup)
+cargo build --release
+```
+
+Run the full stack (single process):
+
+```bash
+./target/release/lekiwi stack
+```
+
+Or run services individually:
+
+```bash
+./target/release/lekiwi motor-bus
+./target/release/lekiwi kinematics
+./target/release/lekiwi state-estimator
+./target/release/lekiwi cameras
+./target/release/lekiwi foxglove
+./target/release/lekiwi behavior-router
+```
+
+Recommended startup order if running individually:
+
+1. motor-bus
 2. kinematics
-3. state_estimator
+3. state-estimator
 4. cameras
-5. foxglove_server
-6. behavior_router
+5. foxglove
+6. behavior-router
 
 Confirm diagnostics show "READY" before enabling torque.
 

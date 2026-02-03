@@ -25,6 +25,10 @@ predictable boot sequence with explicit dependencies and a manual-only logger.
 
 The behavior_router should not enable torque until motor_bus reports healthy.
 
+Note: The current Rust implementation includes a placeholder kinematics
+service. Wheel speed computation happens in motor_bus until kinematics is
+expanded.
+
 ## Dependencies (conceptual)
 
 Example dependencies to encode in unit files:
@@ -73,6 +77,17 @@ Options:
 - StandardOutput=journal
 - StandardError=journal
 - EnvironmentFile=/etc/lekiwi/lekiwi.env
+
+## Example ExecStart
+
+For a typical install with configs in `/etc/lekiwi`:
+
+```
+ExecStart=/usr/local/bin/lekiwi foxglove \
+  --robot-config /etc/lekiwi/robot.yaml \
+  --cameras-config /etc/lekiwi/cameras.yaml \
+  --logging-config /etc/lekiwi/logging.yaml
+```
 
 ## Aggregate Target
 
