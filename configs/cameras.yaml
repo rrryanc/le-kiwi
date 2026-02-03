@@ -1,0 +1,21 @@
+cameras:
+  - name: "base"
+    device: "/dev/v4l/by-id/PUT-YOUR-BASE-CAMERA-ID-HERE"
+    width: 1280
+    height: 720
+    fps: 30
+    format: "mjpeg"
+    auto_exposure: true
+    auto_focus: true
+    flip_horizontal: false
+    flip_vertical: false
+  - name: "wrist"
+    device: "/dev/v4l/by-id/PUT-YOUR-WRIST-CAMERA-ID-HERE"
+    width: 1280
+    height: 720
+    fps: 30
+    format: "mjpeg"
+    auto_exposure: true
+    auto_focus: true
+    flip_horizontal: false
+    flip_vertical: false
