@@ -1,0 +1,3 @@
+target/
+data/mcap/*.mcap
+.DS_Store
